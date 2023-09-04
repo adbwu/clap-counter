@@ -10,7 +10,9 @@ function App() {
   const startRecording = async () => {
     if (recording === false) {
       try {
+        //Requests user audio
         const userAudio = await navigator.mediaDevices.getUserMedia({ audio: true });
+        //Saves stream
         setAudioStream(userAudio);
         setRecording(true);
       } catch (error) {
@@ -19,6 +21,7 @@ function App() {
     }
     else {
       try {
+        //Stops accessing user audio
         audioStream.getTracks().forEach(track => track.stop());
         setRecording(false);
       } catch (error) {
