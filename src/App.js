@@ -4,14 +4,26 @@ import { useState } from 'react';
 
 function App() {
   const [audioStream, setAudioStream] = useState(null);
+  const [recording, setRecording] = useState(false);
 
   //Function to request audio from user on button click
   const startRecording = async () => {
-    try {
-      const userAudio = await navigator.mediaDevices.getUserMedia({ audio: true });
-      setAudioStream(userAudio);
-    } catch (error) {
-      console.error("Error accessing user media:", error);
+    if (recording === false) {
+      try {
+        const userAudio = await navigator.mediaDevices.getUserMedia({ audio: true });
+        setAudioStream(userAudio);
+        setRecording(true);
+      } catch (error) {
+        console.error("Error accessing user media:", error);
+      }
+    }
+    else {
+      try {
+        audioStream.getTracks().forEach(track => track.stop());
+        setRecording(false);
+      } catch (error) {
+        console.error("Error accessing user media:", error);
+      }
     }
   };
 
