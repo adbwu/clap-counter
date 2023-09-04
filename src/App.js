@@ -30,13 +30,22 @@ function App() {
     }
   };
 
+  const micState = () => {
+    if (recording === false) {
+      return "Turn Mic On";
+    }
+    else {
+      return "Turn Mic Off";
+    }
+  };
+ 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Clap Counter</h1>
       </header>
       <main>
-        <button onClick={startRecording}>Mic On</button>
+        <button onClick={startRecording}>{micState()}</button>
       </main>
     </div>
   );
